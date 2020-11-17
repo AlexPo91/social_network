@@ -1,18 +1,32 @@
 import React from "react";
 import Post from "./Post";
 import styles from './MyPosts.module.css'
-const MyPosts = () => {
+
+
+
+
+
+const MyPosts = (props) => {
+  const postsData = props.profilePage.postsData
+  const postElement = postsData.map(el=> <Post message={el.message} likeCount={el.likeCount}/>)
+  let newPostElement = React.createRef()
+
+  let addPost = () =>{
+    props.addPost()
+  }
+  let onChangePost = () =>{
+    let text = newPostElement.current.value
+    props.updatePost(text)
+  }
   return (
     <div>
     My Post
     <div>
-      <textarea></textarea>
-      <button>Add post</button>
+      <textarea ref={newPostElement} onChange={onChangePost} value={props.profilePage.postMessage}></textarea>
+      <button onClick={addPost}>Add post</button>
     </div>
     <div>
-      <Post message="Helo! How are you?" likeCount={10}/>
-      <Post message="Hello World" likeCount={20}/>
-      <Post message="I'm fine!" likeCount={0}/>
+      {postElement}
     </div>
   </div>
   );

@@ -1,14 +1,16 @@
 import React from "react";
 import MyPosts from "./MyPosts";
 import styles from './Profile.module.css'
-const Profile = () => {
+import ProfileInfo from "./ProfileInfo";
+
+
+
+const Profile = (props) => {
+  console.log(props)
   return (
     <div>
-      <div>
-        <img src="https://www.freedigitalphotos.net/images/img/homepage/394230.jpg" />
-      </div>
-      <div>ava+descr</div>
-      <MyPosts/>
+      <ProfileInfo/>
+      <MyPosts profilePage={props.profilePage} addPost={props.addPost} updatePost={props.updatePost}/>
     </div>
   );
 };
