@@ -8,20 +8,14 @@ import Message from './Message'
 
 
 const Dialogs = (props) => {
-    const dialogsData = props.state.dialogsData
-    const messagesData = props.state.messagesData
-    const dialogsElement = dialogsData.map((el=> <DialogItem name={el.name} id={el.id}/>))
-    const messageElement = messagesData.map(el=> <Message message={el.message}/>)
+    const dialogsElement = props.dialogsData.map((el=> <DialogItem name={el.name} id={el.id}/>))
+    const messageElement = props.messagesData.map(el=> <Message message={el.message}/>)
     let addMessage = () => {
-        // props.addMessage()
-        // props.dispatch({type: 'ADD_MESSAGE'})
-        props.dispatch(addMessageAC())
+        props.addMessage()
     }
     let onChangeMessage = (e) => {
         let newMessage = e.target.value
-        // props.updateMessage(newMessageElement.current.value)
-        // props.dispatch({type: 'UPDATE_MESSAGE', message: newMessageElement.current.value})
-        props.dispatch(updateMessageAC(newMessage))
+        props.changeMessage(newMessage)
 
     }
   return (
@@ -31,7 +25,7 @@ const Dialogs = (props) => {
       </div>
       <div className={styles.messages}>
           {messageElement}
-          <textarea onChange={onChangeMessage} value={props.state.newMessage}></textarea>
+          <textarea onChange={onChangeMessage} value={props.newMessage}></textarea>
           <button onClick={addMessage}>add message</button>
       </div>
     </div>

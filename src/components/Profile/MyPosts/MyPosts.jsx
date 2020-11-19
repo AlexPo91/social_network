@@ -8,25 +8,22 @@ import { addPostAC, updatePostAC } from "../../../redux/profilePageReducer";
 
 
 const MyPosts = (props) => {
-  const postsData = props.profilePage.postsData
-  const postElement = postsData.map(el=> <Post message={el.message} likeCount={el.likeCount}/>)
+
+  const postElement = props.postsData.map(el=> <Post message={el.message} likeCount={el.likeCount}/>)
 
   let addPost = () =>{
-    // props.addPost()
-    // props.dispatch({type: "ADD_POST"})
-    props.dispatch(addPostAC())
+    props.addPost()
   }
   let onChangePost = (e) =>{
     let newPost = e.target.value
-    // props.updatePost(text)
-    // props.dispatch({type: "UPDATE_POST", message: newPostElement.current.value})
-    props.dispatch(updatePostAC(newPost))
+    props.updatePost(newPost)
+
   }
   return (
     <div>
     My Post
     <div>
-      <textarea onChange={onChangePost} value={props.profilePage.postMessage}></textarea>
+      <textarea onChange={onChangePost} value={props.postMessage}></textarea>
       <button onClick={addPost}>Add post</button>
     </div>
     <div>
