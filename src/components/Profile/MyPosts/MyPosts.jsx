@@ -9,7 +9,7 @@ import { addPostAC, updatePostAC } from "../../../redux/profilePageReducer";
 
 const MyPosts = (props) => {
 
-  const postElement = props.postsData.map(el=> <Post message={el.message} likeCount={el.likeCount}/>)
+  const postElement = props.profilePage.postsData.map(el=> <Post key={el.id} message={el.message} likeCount={el.likeCount}/>)
 
   let addPost = () =>{
     props.addPost()
@@ -23,7 +23,7 @@ const MyPosts = (props) => {
     <div>
     My Post
     <div>
-      <textarea onChange={onChangePost} value={props.postMessage}></textarea>
+      <textarea onChange={onChangePost} value={props.profilePage.postMessage}></textarea>
       <button onClick={addPost}>Add post</button>
     </div>
     <div>

@@ -26,12 +26,16 @@ const messagesPageReducer = (state = initialState, action) => {
         id: countMessage++,
         message: state.newMessage,
       };
-      state.messagesData.push(newMessage);
-      state.newMessage = "";
-      return state
+      return {
+        ...state,
+        messagesData: [...state.messagesData, newMessage],
+        newMessage: ''
+      }
       case "UPDATE_MESSAGE":
-          state.newMessage = action.message;
-          return state
+        return {
+          ...state,
+          newMessage: action.message
+        }
     default:
       return state;
   }

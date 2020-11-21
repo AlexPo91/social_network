@@ -19,12 +19,22 @@ const profilePageReducer = (state = initialState, action) => {
         message: state.postMessage,
         likeCount: 0,
       };
-      state.postsData.push(newPost);
-      state.postMessage = "";
-      return state
-      case "UPDATE_POST":
-          state.postMessage = action.message;
-          return state
+      return {
+        ...state,
+        postsData: [...state.postsData, newPost],
+        postMessage: ''
+      }
+  
+      case "UPDATE_POST":{
+        return {
+          ...state,
+          postMessage: action.message
+        }
+      }
+        // const newState = {...state}
+        // newState.postMessage = action.message
+        //   // state.postMessage = action.message;
+        //   return newState}
     default: return state
   }
 };
