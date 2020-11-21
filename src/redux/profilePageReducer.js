@@ -31,10 +31,6 @@ const profilePageReducer = (state = initialState, action) => {
           postMessage: action.message
         }
       }
-        // const newState = {...state}
-        // newState.postMessage = action.message
-        //   // state.postMessage = action.message;
-        //   return newState}
     default: return state
   }
 };

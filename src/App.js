@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News";
 import Profile from "./components/Profile/Profile";
 
+import UsersContainer from "./components/Users/UsersContainer";
+
 const App = (props) => {
   return (
     <BrowserRouter>
@@ -24,6 +26,7 @@ const App = (props) => {
           />}/>
           <Route path='/news' component={News}/>
           <Route path='/music' component={Music}/>
+          <Route path='/users' component={UsersContainer}/>
         </div>
       </div>
     </BrowserRouter>
