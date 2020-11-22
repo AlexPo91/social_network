@@ -3,7 +3,8 @@ const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
 
 const initialState = {
-  users: [
+  users: 
+  [
     {id: 1, fullName: 'Alex', status: 'I\'m boss', followed: true, photoUrl: 'https://www.istockphoto.com/resources/images/PhotoFTLP/Signature-1205756464.jpg', location: {city: 'Minsk', country: 'Belarus'}},
     {id: 2, fullName: 'Dima', status: 'I\'m boss too', followed: false, photoUrl: 'https://www.istockphoto.com/resources/images/PhotoFTLP/Signature-1205756464.jpg', location: {city: 'Moscow', country: 'Russia'}},
     {id: 3, fullName: 'Sasha', status: 'I\'m boss too', followed: false, photoUrl: 'https://www.istockphoto.com/resources/images/PhotoFTLP/Signature-1205756464.jpg', location: {city: 'Kiev', country: 'Ukraine'}}
@@ -56,7 +57,7 @@ export const followAC = (userId) => {
   export const setUsersAC = (users) => {
     return {
       type: SET_USERS,
-      users
+      users: users
     }
   }
 
