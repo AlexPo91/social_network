@@ -3,6 +3,45 @@ import { connect } from 'react-redux'
 import store from '../../redux/store'
 import { followAC, setUsersAC, unFollowAC, setTotalCountAC, setCurrentPageAC } from '../../redux/usersPageReducer'
 import Users from './Users'
+import styles from "./Users.module.css";
+import photoUser from "../../assets/image/photo.png";
+
+class UsersApiContainer extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    componentDidMount(){
+        console.log(this.props.usersPage)
+        fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
+            .then((data) => data.json())
+            .then((parseData) => {
+                this.props.setUsers(parseData.items)
+                this.props.setTotalCount(parseData.totalCount)
+            });
+    }
+    onPageChanged = (pageNumber) =>{
+        this.props.setCurrentPage(pageNumber)
+        fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`)
+            .then((data) => data.json())
+            .then((parseData) => {
+                this.props.setUsers(parseData.items)
+                this.props.setTotalCount(parseData.totalCount)
+            });
+    }
+    render() {
+        return (
+            <Users
+                totalCount={this.props.usersPage.totalCount}
+                pageSize={this.props.usersPage.pageSize}
+                currentPage={this.props.usersPage.currentPage}
+                onPageChanged={this.onPageChanged}
+                users={this.props.usersPage.users}
+                unFollow={this.props.unFollow}
+                follow={this.props.follow}
+            />
+        );
+    }
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -30,4 +69,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer)
