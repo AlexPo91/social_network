@@ -1,14 +1,16 @@
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_USERS = "SET_USERS"
+const SET_TOTAL_COUNT = "SET_TOTAL_COUNT"
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
+
 
 const initialState = {
-  users: 
-  [
-    {id: 1, fullName: 'Alex', status: 'I\'m boss', followed: true, photoUrl: 'https://www.istockphoto.com/resources/images/PhotoFTLP/Signature-1205756464.jpg', location: {city: 'Minsk', country: 'Belarus'}},
-    {id: 2, fullName: 'Dima', status: 'I\'m boss too', followed: false, photoUrl: 'https://www.istockphoto.com/resources/images/PhotoFTLP/Signature-1205756464.jpg', location: {city: 'Moscow', country: 'Russia'}},
-    {id: 3, fullName: 'Sasha', status: 'I\'m boss too', followed: false, photoUrl: 'https://www.istockphoto.com/resources/images/PhotoFTLP/Signature-1205756464.jpg', location: {city: 'Kiev', country: 'Ukraine'}}
-  ]
+  users: [],
+  totalCount: 0,
+  currentPage: 1,
+  pageSize: 100
+
 }
 
 const usersPageReducer = (state = initialState, action) => {
@@ -35,7 +37,15 @@ const usersPageReducer = (state = initialState, action) => {
         }
       case SET_USERS:
         return {
-          ...state, users: [...state.users, ...action.users]
+          ...state, users: [...action.users]
+        }
+      case SET_TOTAL_COUNT:
+        return {
+          ...state, totalCount: action.totalCount
+        }
+      case SET_CURRENT_PAGE:
+        return {
+          ...state, currentPage: action.currentPage
         }
 
     default: return state
@@ -58,6 +68,18 @@ export const followAC = (userId) => {
     return {
       type: SET_USERS,
       users: users
+    }
+  }
+  export const setTotalCountAC = (count) => {
+    return {
+      type: SET_TOTAL_COUNT,
+      totalCount: count
+    }
+  }
+  export const setCurrentPageAC = (page) => {
+    return {
+      type: SET_CURRENT_PAGE,
+      currentPage: page
     }
   }
 
