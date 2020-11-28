@@ -8,6 +8,7 @@ import News from "./components/News";
 import Profile from "./components/Profile/Profile";
 
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const App = (props) => {
   return (
@@ -20,7 +21,7 @@ const App = (props) => {
           // store = {props.store}
           // state={props.state.messagesPage} dispatch={props.dispatch}
           />}/>
-          <Route path='/profile' render={()=> <Profile 
+          <Route path='/profile/:userId?' render={()=> <ProfileContainer
           // store = {props.store}
           // profilePage={props.state.profilePage} dispatch={props.dispatch}
           />}/>

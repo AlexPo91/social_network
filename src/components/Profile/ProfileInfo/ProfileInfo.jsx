@@ -1,12 +1,22 @@
 import React from "react";
 import styles from './ProfileInfo.module.css'
-const ProfileInfo = () => {
+import Preloader from "../../common/Preloader";
+const ProfileInfo = (props) => {
+    if(!props.profile){
+        return <Preloader/>
+    }
   return (
     <div className={styles.profileInfo}>
       <div>
-        <img src="https://www.freedigitalphotos.net/images/img/homepage/394230.jpg" />
+        <img src={props.profile.photos.large} />
       </div>
-      <div>ava+descr</div>
+      <div>
+          <span>{props.profile.fullName}</span>
+          <br/>
+          <span>{props.profile.aboutMe}</span>
+          <br/>
+          <span>{props.profile.lookingForAJobDescription}</span>
+      </div>
     </div>
   );
 };
