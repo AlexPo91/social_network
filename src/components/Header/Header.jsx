@@ -1,10 +1,15 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styles from './Header.module.css'
 
-const Header = () => {
+const Header = (props) => {
+  console.log(props)
   return (
     <header className={styles.header}>
       <img src="https://static.dezeen.com/uploads/2019/04/ikea-logo-new-hero-1.jpg" />
+      <div className={styles.loginAuth}>
+        {props.isAuth ? props.login : <NavLink to='/login'>Login</NavLink>}
+      </div>
     </header>
   );
 };
