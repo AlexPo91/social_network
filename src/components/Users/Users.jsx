@@ -5,12 +5,13 @@ import { NavLink } from "react-router-dom";
 import { usersApi } from "../../api/api";
 
 let Users = (props) => {
-  // console.log(props)
+  console.log(props)
   let pagesCount = Math.ceil(props.totalCount / props.pageSize);
   let arrPages = [];
   for (let i = 1; i <= pagesCount; i++) {
     arrPages.push(i);
   }
+  console.log(props)
   return (
     <div>
       <div>
@@ -39,7 +40,7 @@ let Users = (props) => {
           </NavLink>
           <div>
             {user.followed ? (
-              <button
+              <button disabled={props.followInPropgress.some(id=>user.id === id)}
                 onClick={() => {
                     // fetch(
                     //     `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -52,11 +53,13 @@ let Users = (props) => {
                     //     }
                     //   )
                     //     .then((response) => response.json())
+                    props.toggleIsFollow(true, user.id)
                     usersApi.unFollowUser(user)
                         .then((data) => {
                           if (data.resultCode === 0) {
                             props.unFollow(user.id);
                           }
+                          props.toggleIsFollow(false, user.id)
                         });
                   
                 }}
@@ -64,7 +67,7 @@ let Users = (props) => {
                 Unfollowed
               </button>
             ) : (
-              <button
+              <button disabled={props.followInPropgress.some(id=>user.id === id)}
                 onClick={() => {
                   // fetch(
                   //   `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -77,12 +80,14 @@ let Users = (props) => {
                   //   }
                   // )
                   //   .then((response) => response.json())
+                  props.toggleIsFollow(true, user.id)
                   usersApi.followUser(user)
                     .then((data) => {
                         console.log(data)
                       if (data.resultCode === 0) {
                         props.follow(user.id);
                       }
+                      props.toggleIsFollow(false, user.id)
                     });
                 }}
               >

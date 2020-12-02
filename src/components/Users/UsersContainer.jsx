@@ -7,7 +7,8 @@ import {
     unFollow,
     setTotalCount,
     setCurrentPage,
-    toggleIsFetching
+    toggleIsFetching,
+    toggleIsFollow
 } from '../../redux/usersPageReducer'
 import Users from './Users'
 import styles from "./Users.module.css";
@@ -54,8 +55,10 @@ class UsersApiContainer extends React.Component {
                         currentPage={this.props.usersPage.currentPage}
                         onPageChanged={this.onPageChanged}
                         users={this.props.usersPage.users}
+                        followInPropgress={this.props.usersPage.followInPropgress}
                         unFollow={this.props.unFollow}
                         follow={this.props.follow}
+                        toggleIsFollow={this.props.toggleIsFollow}
                     />
                 }
 
@@ -94,5 +97,5 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-    follow, unFollow, setUsers, setTotalCount, setCurrentPage, toggleIsFetching
+    follow, unFollow, setUsers, setTotalCount, setCurrentPage, toggleIsFetching, toggleIsFollow
 })(UsersApiContainer)
