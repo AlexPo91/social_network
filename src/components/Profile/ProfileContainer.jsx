@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {setUserProfile} from './../../redux/profilePageReducer'
 import { withRouter } from "react-router-dom";
+import { usersApi } from "../../api/api";
 
 
 
@@ -16,8 +17,9 @@ class ProfileContainer extends React.Component{
         if(!userId){
             userId = 2
         }
-        fetch(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then((data) => data.json())
+        usersApi.getProfile(userId)
+        // fetch(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+        //     .then((data) => data.json())
             .then((parseData) => {
                 this.props.setUserProfile(parseData)
             });

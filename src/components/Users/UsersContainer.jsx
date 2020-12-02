@@ -13,6 +13,7 @@ import Users from './Users'
 import styles from "./Users.module.css";
 import photoUser from "../../assets/image/photo.png";
 import Preloader from "../common/Preloader";
+import { usersApi } from '../../api/api'
 
 class UsersApiContainer extends React.Component {
     constructor(props) {
@@ -20,9 +21,11 @@ class UsersApiContainer extends React.Component {
     }
     componentDidMount(){
         this.props.toggleIsFetching(true)
-        fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`)
-            .then((data) => data.json())
-            .then((parseData) => {
+        // fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`,
+        // {credentials: 'include'})
+        //     .then((data) => data.json())
+        usersApi.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize)
+        .then((parseData) => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(parseData.items)
                 this.props.setTotalCount(parseData.totalCount)
@@ -31,8 +34,10 @@ class UsersApiContainer extends React.Component {
     onPageChanged = (pageNumber) =>{
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true)
-        fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`)
-            .then((data) => data.json())
+        // fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`,
+        // {credentials: 'include'})
+        //     .then((data) => data.json())
+        usersApi.getUsers(pageNumber, this.props.usersPage.pageSize)
             .then((parseData) => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(parseData.items)
