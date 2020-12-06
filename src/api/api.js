@@ -14,21 +14,15 @@ export const usersApi = {
             return data.json()
         })
     },
-    getAuthMe(){
-        return fetch(`${url}auth/me`, params)
-    .then((data) => {
-        return data.json()
-    })
-    },
     getProfile(userId){
        return fetch(`${url}profile/${userId}`)
         .then((data) => {
             return data.json()
         })
     },
-    unFollowUser(user){
+    unFollowUser(id){
         return fetch(
-                `${url}follow/${user.id}`,
+                `${url}follow/${id}`,
                 {
                  ...params, method: "DELETE"
                 }
@@ -37,9 +31,9 @@ export const usersApi = {
                     return response.json()
                 })
     },
-    followUser(user){
+    followUser(id){
         return fetch(
-            `${url}follow/${user.id}`,
+            `${url}follow/${id}`,
             {
              ...params, method: "POST"
             }
@@ -47,6 +41,15 @@ export const usersApi = {
             .then((response) => {
                 return response.json()
             })
+    }
+}
+
+export const authApi = {
+    me(){
+        return fetch(`${url}auth/me`, params)
+        .then((data) => {
+            return data.json()
+        })
     }
 }
 

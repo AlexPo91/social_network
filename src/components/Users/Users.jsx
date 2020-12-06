@@ -40,7 +40,7 @@ let Users = (props) => {
           </NavLink>
           <div>
             {user.followed ? (
-              <button disabled={props.followInPropgress.some(id=>user.id === id)}
+              <button disabled={props.followInPropgress.includes(user.id)}
                 onClick={() => {
                     // fetch(
                     //     `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -53,21 +53,22 @@ let Users = (props) => {
                     //     }
                     //   )
                     //     .then((response) => response.json())
-                    props.toggleIsFollow(true, user.id)
-                    usersApi.unFollowUser(user)
-                        .then((data) => {
-                          if (data.resultCode === 0) {
-                            props.unFollow(user.id);
-                          }
-                          props.toggleIsFollow(false, user.id)
-                        });
+                    // props.toggleIsFollow(true, user.id)
+                    // usersApi.unFollowUser(user.id)
+                    //     .then((data) => {
+                    //       if (data.resultCode === 0) {
+                    //         props.unFollow(user.id);
+                    //       }
+                    //       props.toggleIsFollow(false, user.id)
+                    //     });
+                    props.unFollow(user.id)
                   
                 }}
               >
                 Unfollowed
               </button>
             ) : (
-              <button disabled={props.followInPropgress.some(id=>user.id === id)}
+              <button disabled={props.followInPropgress.includes(user.id)}
                 onClick={() => {
                   // fetch(
                   //   `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
@@ -80,15 +81,19 @@ let Users = (props) => {
                   //   }
                   // )
                   //   .then((response) => response.json())
-                  props.toggleIsFollow(true, user.id)
-                  usersApi.followUser(user)
-                    .then((data) => {
-                        console.log(data)
-                      if (data.resultCode === 0) {
-                        props.follow(user.id);
-                      }
-                      props.toggleIsFollow(false, user.id)
-                    });
+
+
+                  // props.toggleIsFollow(true, user.id)
+                  // usersApi.followUser(user.id)
+                  //   .then((data) => {
+                  //       console.log(data)
+                  //     if (data.resultCode === 0) {
+                  //       props.follow(user.id);
+                  //     }
+                  //     props.toggleIsFollow(false, user.id)
+                  //   });
+
+                  props.follow(user.id)
                 }}
               >
                 Followed

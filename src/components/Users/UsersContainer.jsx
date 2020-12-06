@@ -8,7 +8,8 @@ import {
     setTotalCount,
     setCurrentPage,
     toggleIsFetching,
-    toggleIsFollow
+    toggleIsFollow, 
+    getUsers
 } from '../../redux/usersPageReducer'
 import Users from './Users'
 import styles from "./Users.module.css";
@@ -21,29 +22,31 @@ class UsersApiContainer extends React.Component {
         super(props);
     }
     componentDidMount(){
-        this.props.toggleIsFetching(true)
-        // fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`,
-        // {credentials: 'include'})
-        //     .then((data) => data.json())
-        usersApi.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize)
-        .then((parseData) => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(parseData.items)
-                this.props.setTotalCount(parseData.totalCount)
-            });
+        this.props.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize)
+        // this.props.toggleIsFetching(true)
+        // // fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`,
+        // // {credentials: 'include'})
+        // //     .then((data) => data.json())
+        // usersApi.getUsers(this.props.usersPage.currentPage, this.props.usersPage.pageSize)
+        // .then((parseData) => {
+        //         this.props.toggleIsFetching(false)
+        //         this.props.setUsers(parseData.items)
+        //         this.props.setTotalCount(parseData.totalCount)
+        //     });
     }
     onPageChanged = (pageNumber) =>{
         this.props.setCurrentPage(pageNumber)
-        this.props.toggleIsFetching(true)
-        // fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`,
-        // {credentials: 'include'})
-        //     .then((data) => data.json())
-        usersApi.getUsers(pageNumber, this.props.usersPage.pageSize)
-            .then((parseData) => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(parseData.items)
-                this.props.setTotalCount(parseData.totalCount)
-            });
+        this.props.getUsers(pageNumber, this.props.usersPage.pageSize)
+        // this.props.toggleIsFetching(true)
+        // // fetch(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.usersPage.pageSize}`,
+        // // {credentials: 'include'})
+        // //     .then((data) => data.json())
+        // usersApi.getUsers(pageNumber, this.props.usersPage.pageSize)
+        //     .then((parseData) => {
+        //         this.props.toggleIsFetching(false)
+        //         this.props.setUsers(parseData.items)
+        //         this.props.setTotalCount(parseData.totalCount)
+        //     });
     }
     render() {
         return (
@@ -97,5 +100,5 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-    follow, unFollow, setUsers, setTotalCount, setCurrentPage, toggleIsFetching, toggleIsFollow
+    follow, unFollow, setUsers, setTotalCount, setCurrentPage, toggleIsFetching, toggleIsFollow, getUsers
 })(UsersApiContainer)
