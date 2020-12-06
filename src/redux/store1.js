@@ -1,36 +1,6 @@
-// const ADD_POST = "ADD_POST"
-// const UPDATE_POST = "UPDATE_POST"
-// const ADD_MESSAGE = "ADD_MESSAGE"
-// const UPDATE_MESSAGE = "UPDATE_MESSAGE"
 
 import messagesPageReducer from "./messagesPageReducer";
 import profilePageReducer from "./profilePageReducer";
-
-// export const addPostAC = () => {
-//   return {
-//     type: ADD_POST
-//   }
-// }
-
-// export const updatePostAC = (message) => {
-//   return {
-//     type: UPDATE_POST,
-//     message: message
-//   }
-// }
-
-// export const addMessageAC = () => {
-//   return {
-//     type: ADD_MESSAGE
-//   }
-// }
-
-// export const updateMessageAC = (message) => {
-//   return {
-//     type: UPDATE_MESSAGE,
-//     message: message
-//   }
-// }
 
 const store = {
   _state: {

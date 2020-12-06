@@ -1,13 +1,8 @@
 import React from "react";
-import MyPosts from "./MyPosts";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import styles from "./Profile.module.css";
-import ProfileInfo from "./ProfileInfo";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import { getUserProfile } from "./../../redux/profilePageReducer";
 import { withRouter } from "react-router-dom";
-import { usersApi } from "../../api/api";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {

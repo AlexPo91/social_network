@@ -1,5 +1,5 @@
-const ADD_MESSAGE = "ADD_MESSAGE"
-const UPDATE_MESSAGE = "UPDATE_MESSAGE"
+const ADD_MESSAGE = "ADD_MESSAGE";
+const UPDATE_MESSAGE = "UPDATE_MESSAGE";
 
 const initialState = {
   dialogsData: [
@@ -16,7 +16,7 @@ const initialState = {
     { id: 3, message: "Well done" },
   ],
   newMessage: "",
-}
+};
 
 const messagesPageReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -29,29 +29,29 @@ const messagesPageReducer = (state = initialState, action) => {
       return {
         ...state,
         messagesData: [...state.messagesData, newMessage],
-        newMessage: ''
-      }
-      case "UPDATE_MESSAGE":
-        return {
-          ...state,
-          newMessage: action.message
-        }
+        newMessage: "",
+      };
+    case "UPDATE_MESSAGE":
+      return {
+        ...state,
+        newMessage: action.message,
+      };
     default:
       return state;
   }
 };
 
 export const addMessageAC = () => {
-    return {
-      type: ADD_MESSAGE
-    }
-  }
-  
-  export const updateMessageAC = (message) => {
-    return {
-      type: UPDATE_MESSAGE,
-      message: message
-    }
-  }
+  return {
+    type: ADD_MESSAGE,
+  };
+};
 
-  export default messagesPageReducer
+export const updateMessageAC = (message) => {
+  return {
+    type: UPDATE_MESSAGE,
+    message: message,
+  };
+};
+
+export default messagesPageReducer;

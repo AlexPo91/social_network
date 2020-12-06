@@ -1,8 +1,8 @@
-import {usersApi} from '../api/api'
+import { usersApi } from "../api/api";
 
-const ADD_POST = "ADD_POST"
-const UPDATE_POST = "UPDATE_POST"
-const SET_USER_PROFILE = "SET_USER_PROFILE"
+const ADD_POST = "ADD_POST";
+const UPDATE_POST = "UPDATE_POST";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 const initialState = {
   postsData: [
@@ -11,9 +11,8 @@ const initialState = {
     { id: 3, message: "I'm fine!", likeCount: 0 },
   ],
   postMessage: "",
-  profile: null
-
-}
+  profile: null,
+};
 
 const profilePageReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -27,51 +26,51 @@ const profilePageReducer = (state = initialState, action) => {
       return {
         ...state,
         postsData: [...state.postsData, newPost],
-        postMessage: ''
-      }
-  
-      case "UPDATE_POST":{
-        return {
-          ...state,
-          postMessage: action.message
-        }
-      }
-    case "SET_USER_PROFILE":{
+        postMessage: "",
+      };
+
+    case "UPDATE_POST": {
       return {
         ...state,
-        profile: action.profile
-      }
+        postMessage: action.message,
+      };
     }
-    default: return state
+    case "SET_USER_PROFILE": {
+      return {
+        ...state,
+        profile: action.profile,
+      };
+    }
+    default:
+      return state;
   }
 };
 
 export const addPostAC = () => {
-    return {
-      type: ADD_POST
-    }
-  }
-  
-  export const updatePostAC = (message) => {
-    return {
-      type: UPDATE_POST,
-      message: message
-    }
-  }
+  return {
+    type: ADD_POST,
+  };
+};
+
+export const updatePostAC = (message) => {
+  return {
+    type: UPDATE_POST,
+    message: message,
+  };
+};
 export const setUserProfile = (profile) => {
   return {
     type: SET_USER_PROFILE,
-    profile: profile
-  }
-}
+    profile: profile,
+  };
+};
 
 export const getUserProfile = (userId) => {
-  return (dispatch)=>{
-    usersApi.getProfile(userId)
-            .then((parseData) => {
-                dispatch(setUserProfile(parseData))
-            });
-  }
-}
+  return (dispatch) => {
+    usersApi.getProfile(userId).then((parseData) => {
+      dispatch(setUserProfile(parseData));
+    });
+  };
+};
 
 export default profilePageReducer;
