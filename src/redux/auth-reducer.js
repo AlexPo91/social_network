@@ -31,8 +31,11 @@ export const setUserAuthData = (id, email, login) => {
 export const getUserAuthData = () => {
   return (dispatch) => {
     authApi.me().then((parseData) => {
-      let { id, login, email } = parseData.data;
+      if(parseData.resultCode===0)
+        {
+          let { id, login, email } = parseData.data;
       dispatch(setUserAuthData(id, email, login));
+        }
     });
   };
 };
