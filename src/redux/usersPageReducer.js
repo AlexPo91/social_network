@@ -64,7 +64,7 @@ const usersPageReducer = (state = initialState, action) => {
         ...state,
         followInPropgress: action.followInPropgress
           ? [...state.followInPropgress, action.userId]
-          : state.followInPropgress.filter((id) => id != action.userId),
+          : state.followInPropgress.filter((id) => id !== action.userId),
       };
 
     default:
