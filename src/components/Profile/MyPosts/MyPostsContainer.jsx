@@ -1,4 +1,4 @@
-import { addPostAC, updatePostAC } from "../../../redux/profilePageReducer";
+import { addPostAC } from "../../../redux/profilePageReducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 
@@ -9,12 +9,9 @@ const mapStateToProps = (state) => {
 };
 const mpaDispatchToProps = (dispatch) => {
   return {
-    addPost() {
-      dispatch(addPostAC());
-    },
-    updatePost(newPost) {
-      dispatch(updatePostAC(newPost));
-    },
+    addPost(newPost) {
+      dispatch(addPostAC(newPost));
+    }
   };
 };
 export default connect(mapStateToProps, mpaDispatchToProps)(MyPosts);

@@ -1,5 +1,4 @@
 const ADD_MESSAGE = "ADD_MESSAGE";
-const UPDATE_MESSAGE = "UPDATE_MESSAGE";
 
 const initialState = {
   dialogsData: [
@@ -15,7 +14,6 @@ const initialState = {
     { id: 2, message: "How are you" },
     { id: 3, message: "Well done" },
   ],
-  newMessage: "",
 };
 
 const messagesPageReducer = (state = initialState, action) => {
@@ -24,33 +22,21 @@ const messagesPageReducer = (state = initialState, action) => {
       let countMessage = state.messagesData.length;
       let newMessage = {
         id: ++countMessage,
-        message: state.newMessage,
+        message: action.newMessage,
       };
       return {
         ...state,
         messagesData: [...state.messagesData, newMessage],
-        newMessage: "",
-      };
-    case "UPDATE_MESSAGE":
-      return {
-        ...state,
-        newMessage: action.message,
       };
     default:
       return state;
   }
 };
 
-export const addMessageAC = () => {
+export const addMessageAC = (newMessage) => {
   return {
     type: ADD_MESSAGE,
-  };
-};
-
-export const updateMessageAC = (message) => {
-  return {
-    type: UPDATE_MESSAGE,
-    message: message,
+    newMessage
   };
 };
 
