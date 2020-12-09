@@ -23,7 +23,7 @@ const messagesPageReducer = (state = initialState, action) => {
     case "ADD_MESSAGE":
       let countMessage = state.messagesData.length;
       let newMessage = {
-        id: countMessage++,
+        id: ++countMessage,
         message: state.newMessage,
       };
       return {

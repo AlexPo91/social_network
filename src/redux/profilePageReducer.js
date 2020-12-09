@@ -1,8 +1,9 @@
-import { usersApi } from "../api/api";
+import { profileApi, usersApi } from "../api/api";
 
 const ADD_POST = "ADD_POST";
 const UPDATE_POST = "UPDATE_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_STATUS = "SET_STATUS";
 
 const initialState = {
   postsData: [
@@ -12,6 +13,7 @@ const initialState = {
   ],
   postMessage: "",
   profile: null,
+  status: ''
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -19,7 +21,7 @@ const profilePageReducer = (state = initialState, action) => {
     case "ADD_POST":
       let countPosts = state.postsData.length;
       let newPost = {
-        id: countPosts++,
+        id: ++countPosts,
         message: state.postMessage,
         likeCount: 0,
       };
@@ -39,6 +41,12 @@ const profilePageReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.profile,
+      };
+    }
+    case "SET_STATUS": {
+      return {
+        ...state,
+        status: action.status,
       };
     }
     default:
@@ -64,6 +72,12 @@ export const setUserProfile = (profile) => {
     profile: profile,
   };
 };
+export const setStatus = (status) => { 
+  return {
+    type: SET_STATUS,
+    status: status,
+  };
+};
 
 export const getUserProfile = (userId) => {
   return (dispatch) => {
@@ -72,5 +86,22 @@ export const getUserProfile = (userId) => {
     });
   };
 };
+
+export const getStatus = (userId) => {
+  return (dispatch)=> {
+    profileApi.getStatus(userId).then((parseData)=>{
+      dispatch(setStatus(parseData))
+    })
+  }
+}
+export const updateStatus = (status) => {
+  return (dispatch)=> {
+    profileApi.updateStatus(status).then((parseData)=>{
+      if(parseData.resultCode === 0){
+      dispatch(setStatus(status))
+      }
+    })
+  }
+}
 
 export default profilePageReducer;

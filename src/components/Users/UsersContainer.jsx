@@ -33,7 +33,7 @@ class UsersApiContainer extends React.Component {
         {this.props.usersPage.isFetching ? (
           <Preloader />
         ) : (
-          <Users key={this.props.usersPage.users.id}
+          <Users 
             totalCount={this.props.usersPage.totalCount}
             pageSize={this.props.usersPage.pageSize}
             currentPage={this.props.usersPage.currentPage}
