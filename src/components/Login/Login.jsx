@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom'
 import styles from '../../utils/FormsControl.module.css'
 let maxLength20 = maxLength(20)
 const LoginForm = (props) => {
-    console.log(props)
     return (
         <form onSubmit={props.handleSubmit}>
             <div><Field type={"text"} component={Input} name={'email'} placeholder={'Login'} validate={[required, maxLength20]}/></div>
@@ -22,7 +21,6 @@ const LoginForm = (props) => {
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 const Login = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData)
         props.login(formData.email, formData.password)
     }
     if(props.isAuth) return <Redirect to='/profile'/>
