@@ -68,4 +68,22 @@ export const authApi = {
       return data.json();
     });
   },
+  login(email, password, rememberMe=false) {
+    return fetch(`${url}auth/login`, {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
+      },
+      body: JSON.stringify({email: email, password: password, rememberMe: rememberMe})
+    }).then((data) => {
+      return data.json();
+    });
+  },
+  logOut() {
+    return fetch(`${url}auth/login`, {...params, method: "DELETE"}).then((data) => {
+      return data.json();
+    });
+  },
 };

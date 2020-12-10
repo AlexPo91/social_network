@@ -64,7 +64,6 @@ const store = {
       this._callSubscriber(this._state);
   },
   _callSubscriber() {
-    console.log("State changed");
   },
   getState() {
     return this._state;
