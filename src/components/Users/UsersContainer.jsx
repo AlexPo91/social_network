@@ -12,6 +12,7 @@ import {
 } from "../../redux/usersPageReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
+import { getUsersPage } from "../../utils/selectors";
 
 class UsersApiContainer extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class UsersApiContainer extends React.Component {
     );
   }
   onPageChanged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber);
+    // this.props.setCurrentPage(pageNumber);
     this.props.getUsers(pageNumber, this.props.usersPage.pageSize);
   };
   render() {
@@ -52,7 +53,7 @@ class UsersApiContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    usersPage: state.usersPage,
+    usersPage: getUsersPage(state),
   };
 };
 export default connect(mapStateToProps, {

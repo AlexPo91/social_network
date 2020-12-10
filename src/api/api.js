@@ -42,7 +42,7 @@ export const profileApi = {
       return data.json();
     });
   },
-  getStatus(userId) {
+  getUserStatus(userId) {
     return fetch(`${url}profile/status/${userId}`).then((data) => {
       return data.json();
     });

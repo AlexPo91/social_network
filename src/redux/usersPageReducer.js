@@ -119,6 +119,7 @@ export const toggleIsFollow = (isFetching, userId) => {
 export const getUsers = (currentPage, pageSize) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));
+    dispatch(setCurrentPage(currentPage))
     usersApi.getUsers(currentPage, pageSize).then((parseData) => {
       dispatch(toggleIsFetching(false));
       dispatch(setUsers(parseData.items));
