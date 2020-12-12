@@ -25,7 +25,6 @@ class UsersApiContainer extends React.Component {
     );
   }
   onPageChanged = (pageNumber) => {
-    // this.props.setCurrentPage(pageNumber);
     this.props.getUsers(pageNumber, this.props.usersPage.pageSize);
   };
   render() {

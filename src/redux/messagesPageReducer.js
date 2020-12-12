@@ -1,4 +1,4 @@
-const ADD_MESSAGE = "ADD_MESSAGE";
+const ADD_MESSAGE = "social-network/messagesPageReducer/ADD_MESSAGE";
 
 const initialState = {
   dialogsData: [
@@ -18,7 +18,7 @@ const initialState = {
 
 const messagesPageReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_MESSAGE":
+    case ADD_MESSAGE:
       let countMessage = state.messagesData.length;
       let newMessage = {
         id: ++countMessage,

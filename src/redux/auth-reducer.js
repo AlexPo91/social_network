@@ -1,6 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { authApi } from "./../api/api";
-const SET_USER_AUTH = "SET_USER_AUTH";
+const SET_USER_AUTH = "social-network/auth-reducer/SET_USER_AUTH";
 
 const initialState = {
   id: null,
@@ -11,10 +11,10 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_USER_AUTH":
+    case SET_USER_AUTH:
       return {
         ...state,
-        ...action.userData
+        ...action.userData,
       };
     default:
       return state;
@@ -28,42 +28,30 @@ export const setUserAuthData = (id, email, login, isAuth) => {
   };
 };
 
-export const getUserAuthData = () => {
-  return (dispatch) => {
-    return authApi.me().then((parseData) => {
-      if(parseData.resultCode===0)
-        {
-          let { id, login, email } = parseData.data;
-      dispatch(setUserAuthData(id, email, login, true));
-        }
-    });
-  };
+export const getUserAuthData = () => async (dispatch) => {
+  const response = await authApi.me();
+  if (response.resultCode === 0) {
+    let { id, login, email } = response.data;
+    dispatch(setUserAuthData(id, email, login, true));
+  }
 };
 
-export const login = (email, password, rememberMe) => {
-  return (dispatch) => {
-    authApi.login(email, password, rememberMe).then((parseData) => {
-      if(parseData.resultCode===0)
-        {
-          dispatch(getUserAuthData())
-        }
-      else{
-        let message = parseData.messages.length > 0 ? parseData.messages[0] : "Some Error"
-        dispatch(stopSubmit('login',{_error: message}))
-      }
-    });
-  };
+export const login = (email, password, rememberMe) => async (dispatch) => {
+  const response = await authApi.login(email, password, rememberMe);
+  if (response.resultCode === 0) {
+    dispatch(getUserAuthData());
+  } else {
+    let message =
+      response.messages.length > 0 ? response.messages[0] : "Some Error";
+    dispatch(stopSubmit("login", { _error: message }));
+  }
 };
 
-export const logOut = () => {
-  return (dispatch) => {
-    authApi.logOut().then((parseData) => {
-      if(parseData.resultCode===0)
-        {
-          dispatch(setUserAuthData(null, null, null, false))
-        }
-    });
-  };
+export const logOut = () => async (dispatch) => {
+  const response = await authApi.logOut();
+  if (response.resultCode === 0) {
+    dispatch(setUserAuthData(null, null, null, false));
+  }
 };
 
 export default authReducer;

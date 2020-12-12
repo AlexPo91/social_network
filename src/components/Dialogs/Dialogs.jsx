@@ -8,9 +8,9 @@ import Message from "./Message";
 
 let maxLength50 = maxLength(50)
 
-let AddMessageForm = (props) => {
+let AddMessageForm = ({handleSubmit}) => {
   return(
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <Field component={Textarea} name={'newMessage'} placeholder={'Add new Message'} validate={[required, maxLength50]}></Field>
       <button>Add Message</button>
     </form>

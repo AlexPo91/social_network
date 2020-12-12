@@ -1,6 +1,6 @@
 import {getUserAuthData} from './auth-reducer'
 
-const INITIALIZED_SUCCES = 'INITIALIZED_SUCCES'
+const INITIALIZED_SUCCES = 'social-network/app-reducer/INITIALIZED_SUCCES'
 
 const initialState = {
     initialized: false
@@ -8,7 +8,7 @@ const initialState = {
   
   const appReducer = (state = initialState, action) => {
     switch (action.type) {
-      case "INITIALIZED_SUCCES":
+      case INITIALIZED_SUCCES:
         return {
           ...state,
           initialized: true

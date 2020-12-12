@@ -1,9 +1,9 @@
 import { profileApi, usersApi } from "../api/api";
 
-const ADD_POST = "ADD_POST";
-const DELETE_POST = "DELETE_POST";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_STATUS = "SET_STATUS";
+const ADD_POST = "social-network/profilePageReducer/ADD_POST";
+const DELETE_POST = "social-network/profilePageReducer/DELETE_POST";
+const SET_USER_PROFILE = "social-network/profilePageReducer/SET_USER_PROFILE";
+const SET_STATUS = "social-network/profilePageReducer/SET_STATUS";
 
 const initialState = {
   postsData: [
@@ -12,12 +12,12 @@ const initialState = {
     { id: 3, message: "I'm fine!", likeCount: 0 },
   ],
   profile: null,
-  status: ''
+  status: "",
 };
 
 const profilePageReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_POST":
+    case ADD_POST:
       let countPosts = state.postsData.length;
       let newPost = {
         id: ++countPosts,
@@ -28,18 +28,18 @@ const profilePageReducer = (state = initialState, action) => {
         ...state,
         postsData: [...state.postsData, newPost],
       };
-    case "DELETE_POST":
+    case DELETE_POST:
       return {
         ...state,
-        postsData: state.postsData.filter(el=>el.id!==action.postId),
+        postsData: state.postsData.filter((el) => el.id !== action.postId),
       };
-    case "SET_USER_PROFILE": {
+    case SET_USER_PROFILE: {
       return {
         ...state,
         profile: action.profile,
       };
     }
-    case "SET_STATUS": {
+    case SET_STATUS: {
       return {
         ...state,
         status: action.status,
@@ -53,13 +53,13 @@ const profilePageReducer = (state = initialState, action) => {
 export const addPostAC = (postMessage) => {
   return {
     type: ADD_POST,
-    postMessage
+    postMessage,
   };
 };
 export const deletePostAC = (postId) => {
   return {
     type: DELETE_POST,
-    postId
+    postId,
   };
 };
 export const setUserProfile = (profile) => {
@@ -68,36 +68,27 @@ export const setUserProfile = (profile) => {
     profile: profile,
   };
 };
-export const setStatus = (status) => { 
+export const setStatus = (status) => {
   return {
     type: SET_STATUS,
     status: status,
   };
 };
 
-export const getUserProfile = (userId) => {
-  return (dispatch) => {
-    usersApi.getProfile(userId).then((parseData) => {
-      dispatch(setUserProfile(parseData));
-    });
-  };
+export const getUserProfile = (userId) => async (dispatch) => {
+  let response = await usersApi.getProfile(userId);
+  dispatch(setUserProfile(response));
 };
 
-export const getUserStatus = (userId) => {
-  return (dispatch)=> {
-    profileApi.getUserStatus(userId).then((parseData)=>{
-      dispatch(setStatus(parseData))
-    })
+export const getUserStatus = (userId) => async (dispatch) => {
+  let response = await profileApi.getUserStatus(userId);
+  dispatch(setStatus(response));
+};
+export const updateStatus = (status) => async (dispatch) => {
+  let response = await profileApi.updateStatus(status);
+  if (response.resultCode === 0) {
+    dispatch(setStatus(status));
   }
-}
-export const updateStatus = (status) => {
-  return (dispatch)=> {
-    profileApi.updateStatus(status).then((parseData)=>{
-      if(parseData.resultCode === 0){
-      dispatch(setStatus(status))
-      }
-    })
-  }
-}
+};
 
 export default profilePageReducer;
