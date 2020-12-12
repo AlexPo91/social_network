@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, withRouter } from "react-router-dom";
 import "./App.css";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Music from "./components/Music";
@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import { initializedApp} from "./redux/app-reducer";
 import { connect } from 'react-redux';
 import Preloader from './components/common/Preloader';
+import { compose } from 'redux';
 
 class App extends React.Component{
   componentDidMount() {
@@ -21,7 +22,6 @@ class App extends React.Component{
   render(){
     if(!this.props.initialized) return <Preloader/>
     return (
-      <BrowserRouter>
         <div className="app-wrapper">
           <HeaderContainer />
           <Navbar />
@@ -34,7 +34,6 @@ class App extends React.Component{
             <Route path='/login' component={Login}/>
           </div>
         </div>
-      </BrowserRouter>
     );
   }
   
@@ -42,4 +41,7 @@ class App extends React.Component{
 const mapStatetoProps = (state) => ({
   initialized: state.app.initialized
 })
-export default connect(mapStatetoProps, {initializedApp})(App);
+export default compose(
+  withRouter,
+  connect(mapStatetoProps, {initializedApp}))(App)
+// connect(mapStatetoProps, {initializedApp})(App);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const ProfileStatusWithHooks = (props) => {
+const ProfileStatusWithHooks = React.memo((props) => {
   let [editMode, setEditMode] = useState(false)
   let [status, setStatus] = useState(props.status)
 
@@ -17,13 +17,6 @@ const ProfileStatusWithHooks = (props) => {
   const changeStatus = (e) => {
       setStatus(e.target.value)
   }
-  // componentDidUpdate(prevProps, prevState){
-  //   if(this.props.status !== prevProps.status){
-  //     this.setState({
-  //       status: this.props.status
-  //     })
-  //   }
-  // }
     return (
       <>
         {!editMode && (
@@ -38,6 +31,6 @@ const ProfileStatusWithHooks = (props) => {
         )}
       </>
     );
-}
+})
 
 export default ProfileStatusWithHooks;
