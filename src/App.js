@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, withRouter } from "react-router-dom";
 import "./App.css";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Music from "./components/Music";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+
+// import DialogsContainer from "./components/Dialogs/DialogsContainer";
+// import UsersContainer from "./components/Users/UsersContainer";
+// import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login";
 import { initializedApp } from "./redux/app-reducer";
@@ -14,7 +15,10 @@ import { connect, Provider } from "react-redux";
 import Preloader from "./components/common/Preloader";
 import { compose } from "redux";
 import store from "./redux/redux-store";
-
+import { withSuspense } from "./hoc/withSuspense";
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 class App extends React.Component {
   componentDidMount() {
     this.props.initializedApp();
@@ -26,11 +30,14 @@ class App extends React.Component {
         <HeaderContainer />
         <Navbar />
         <div className="app-wrapper-content">
-          <Route path="/dialogs" render={() => <DialogsContainer />} />
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+          {/* <Route path="/dialogs" render={() => <DialogsContainer />} /> */}
+          <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
+          {/* <Route path="/profile/:userId?" render={() => <ProfileContainer />} /> */}
+          <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />
-          <Route path="/users" component={UsersContainer} />
+          {/* <Route path="/users" component={UsersContainer} /> */}
+          <Route path="/users" render={withSuspense(UsersContainer)} />
           <Route path="/login" component={Login} />
         </div>
       </div>
