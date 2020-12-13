@@ -38,12 +38,12 @@ export const usersApi = {
 };
 export const profileApi = {
   getProfile(userId) {
-    return fetch(`${url}profile/${userId}`).then((data) => {
+    return fetch(`${url}profile/${userId}`, params).then((data) => {
       return data.json();
     });
   },
   getUserStatus(userId) {
-    return fetch(`${url}profile/status/${userId}`).then((data) => {
+    return fetch(`${url}profile/status/${userId}`, params).then((data) => {
       return data.json();
     });
   },

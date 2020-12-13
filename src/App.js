@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, withRouter } from "react-router-dom";
+import { BrowserRouter, Route, withRouter, HashRouter } from "react-router-dom";
 import "./App.css";
 import Music from "./components/Music";
 import Navbar from "./components/Navbar/Navbar";
@@ -54,13 +54,13 @@ const AppContainer = compose(
 
 const MainApp = (props) => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <React.StrictMode>
         <Provider store={store}>
           <AppContainer />
         </Provider>
       </React.StrictMode>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
