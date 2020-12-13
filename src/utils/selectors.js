@@ -19,5 +19,21 @@ export const getLogin = (state) => {
 }
 
 export const getUsersPage = (state) => {
-    return state.usersPage
+    return state.usersPage.users
+}
+
+export const getIsFetching = state => {
+    return state.usersPage.isFetching
+}
+export const getCurrentPage = state => {
+    return state.usersPage.currentPage
+}
+export const getPageSize = state => {
+    return state.usersPage.pageSize
+}
+export const getTotalCount = state => {
+    return state.usersPage.totalCount
+}
+export const getFollowInPropgress = state => {
+    return state.usersPage.followInPropgress
 }

@@ -1,18 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  follow,
-  setUsers,
-  unFollow,
-  setTotalCount,
-  setCurrentPage,
-  toggleIsFetching,
-  toggleIsFollow,
-  getUsers,
-} from "../../redux/usersPageReducer";
+import {follow, unFollow, setCurrentPage, toggleIsFollow, getUsers} from "../../redux/usersPageReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
-import { getUsersPage } from "../../utils/selectors";
+import { getUsersPage, getIsFetching, getCurrentPage, getPageSize, getTotalCount, getFollowInPropgress } from "../../utils/selectors";
+import { compose } from "redux";
 
 class UsersApiContainer extends React.Component {
   constructor(props) {
@@ -20,31 +12,28 @@ class UsersApiContainer extends React.Component {
   }
   componentDidMount() {
     this.props.getUsers(
-      this.props.usersPage.currentPage,
-      this.props.usersPage.pageSize
+      this.props.currentPage,
+      this.props.pageSize
     );
   }
   onPageChanged = (pageNumber) => {
-    this.props.getUsers(pageNumber, this.props.usersPage.pageSize);
+    this.props.getUsers(pageNumber, this.props.pageSize);
   };
   render() {
     return (
       <>
-        {this.props.usersPage.isFetching ? (
-          <Preloader />
-        ) : (
+        {this.props.isFetching ? <Preloader /> : null}
           <Users 
-            totalCount={this.props.usersPage.totalCount}
-            pageSize={this.props.usersPage.pageSize}
-            currentPage={this.props.usersPage.currentPage}
+            totalCount={this.props.totalCount}
+            pageSize={this.props.pageSize}
+            currentPage={this.props.currentPage}
             onPageChanged={this.onPageChanged}
-            users={this.props.usersPage.users}
-            followInPropgress={this.props.usersPage.followInPropgress}
+            users={this.props.users}
+            followInPropgress={this.props.followInPropgress}
             unFollow={this.props.unFollow}
             follow={this.props.follow}
-            toggleIsFollow={this.props.toggleIsFollow}
           />
-        )}
+      
       </>
     );
   }
@@ -52,16 +41,14 @@ class UsersApiContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    usersPage: getUsersPage(state),
+    users: getUsersPage(state),
+    isFetching: getIsFetching(state),
+    currentPage: getCurrentPage(state),
+    pageSize: getPageSize(state),
+    totalCount: getTotalCount(state),
+    followInPropgress: getFollowInPropgress(state)
   };
 };
-export default connect(mapStateToProps, {
-  follow,
-  unFollow,
-  setUsers,
-  setTotalCount,
-  setCurrentPage,
-  toggleIsFetching,
-  toggleIsFollow,
-  getUsers,
-})(UsersApiContainer);
+export default compose(
+  connect(mapStateToProps, {follow, unFollow, setCurrentPage, toggleIsFollow, getUsers}))(UsersApiContainer)
+

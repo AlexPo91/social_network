@@ -12,6 +12,7 @@ let Users = ({users, currentPage, onPageChanged, totalCount, pageSize, followInP
         totalCount={totalCount}
         pageSize={pageSize}
       />
+      <div>
       {users.map((user) => (
         <User
           key={user.id}
@@ -21,6 +22,7 @@ let Users = ({users, currentPage, onPageChanged, totalCount, pageSize, followInP
           follow={follow}
         />
       ))}
+      </div>
     </div>
   );
 };
