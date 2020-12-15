@@ -1,3 +1,9 @@
 .mainPhoto {
     max-width: 150px;
 }
+.profileData span {
+    font-weight: bold;
+}
+.profileData .contactsItem{
+    margin-left: 20px;
+}

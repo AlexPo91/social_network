@@ -61,19 +61,29 @@ export const profileApi = {
     });
   },
   savePhoto(photoFile) {
-    // console.log(photoFile)
     const formData = new FormData()
     formData.append('image', photoFile)
     return fetch(`${url}/profile/photo`, {
       credentials: "include",
       method: "PUT",
       headers: {
-        // 'Content-Type': 'multipart/form-data',
         "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
       },
       body: formData
     }).then((data) => {
-      // console.log(data.json())
+      return data.json();
+    });
+  },
+  saveProfile(profile) {
+    return fetch(`${url}/profile`, {
+      credentials: "include",
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json',
+        "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
+      },
+      body: JSON.stringify(profile)
+    }).then((data) => {
       return data.json();
     });
   }

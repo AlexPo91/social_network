@@ -13,10 +13,6 @@ let Paginator = ({ currentPage, onPageChanged, totalCount, pageSize, portionSize
   let leftPortionPageNumber = (portionNumber-1)*portionSize+1
   let rightPortionPageNumber = portionNumber*portionSize
 
-  console.log(portionCount,
-    portionNumber,
-    leftPortionPageNumber,
-    rightPortionPageNumber)
   return (
     <div className={styles.paginator}>
       {portionNumber > 1 &&
