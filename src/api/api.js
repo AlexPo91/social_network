@@ -1,5 +1,5 @@
 const url = "https://social-network.samuraijs.com/api/1.0/";
-const params = {
+let params = {
   credentials: "include",
   headers: {
     "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
@@ -9,8 +9,7 @@ const params = {
 export const usersApi = {
   getUsers(currentPage = 1, pageSize = 10) {
     return fetch(
-      `${url}users?page=${currentPage}&count=${pageSize}`,
-      params
+      `${url}users?page=${currentPage}&count=${pageSize}`, params
     ).then((data) => {
       return data.json();
     });
@@ -48,42 +47,51 @@ export const profileApi = {
     });
   },
   updateStatus(status) {
-    return fetch(`${url}/profile/status`, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-        'Content-Type': 'application/json',
-        "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
-      },
-      body: JSON.stringify({status: status})
-    }).then((data) => {
+    return fetch(`${url}/profile/status`, 
+    {...params, method: "PUT", headers: {...params.headers, 'Content-Type': 'application/json',}, body: JSON.stringify({status: status})}
+    // {
+    //   credentials: "include",
+    //   method: "PUT",
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
+    //   },
+    //   body: JSON.stringify({status: status})
+    // }
+    ).then((data) => {
       return data.json();
     });
   },
   savePhoto(photoFile) {
     const formData = new FormData()
     formData.append('image', photoFile)
-    return fetch(`${url}/profile/photo`, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-        "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
-      },
-      body: formData
-    }).then((data) => {
+    return fetch(`${url}/profile/photo`, 
+    {...params, method: "PUT", body: formData}
+    // {
+    //   credentials: "include",
+    //   method: "PUT",
+    //   headers: {
+    //     "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
+    //   },
+    //   body: formData
+    // }
+    ).then((data) => {
       return data.json();
     });
   },
   saveProfile(profile) {
-    return fetch(`${url}/profile`, {
-      credentials: "include",
-      method: "PUT",
-      headers: {
-        'Content-Type': 'application/json',
-        "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
-      },
-      body: JSON.stringify(profile)
-    }).then((data) => {
+    return fetch(`${url}/profile`, 
+    {...params, method: "PUT", headers: {...params.headers, 'Content-Type': 'application/json',}, body: JSON.stringify(profile)}
+    // {
+    //   credentials: "include",
+    //   method: "PUT",
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
+    //   },
+    //   body: JSON.stringify(profile)
+    // }
+    ).then((data) => {
       return data.json();
     });
   }
@@ -91,20 +99,24 @@ export const profileApi = {
 
 export const authApi = {
   me() {
-    return fetch(`${url}auth/me`, params).then((data) => {
+    return fetch(`${url}auth/me`, {...params, method: "GET"}).then((data) => {
       return data.json();
     });
   },
   login(email, password, rememberMe=false) {
-    return fetch(`${url}auth/login`, {
-      credentials: "include",
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
-      },
-      body: JSON.stringify({email: email, password: password, rememberMe: rememberMe})
-    }).then((data) => {
+    return fetch(`${url}auth/login`, 
+    {...params, method: "POST", headers: {...params.headers, 'Content-Type': 'application/json'}, body: JSON.stringify({email: email, password: password, rememberMe: rememberMe})} 
+    // params
+    // {
+    //   credentials: "include",
+    //   method: "POST",
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
+    //   },
+    //   body: JSON.stringify({email: email, password: password, rememberMe: rememberMe})
+    // }
+    ).then((data) => {
       return data.json();
     });
   },
