@@ -1,10 +1,13 @@
 .header{
     grid-area: h;
-    background-color: aquamarine;
+    background-color: rgb(127, 214, 255);
   }
   .header img{
     width: 50px;
   }
   .loginAuth {
     float: right;
+  }
+  img {
+    max-height: 100%;
   }

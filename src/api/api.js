@@ -103,9 +103,9 @@ export const authApi = {
       return data.json();
     });
   },
-  login(email, password, rememberMe=false) {
+  login(email, password, captcha=null, rememberMe=false) {
     return fetch(`${url}auth/login`, 
-    {...params, method: "POST", headers: {...params.headers, 'Content-Type': 'application/json'}, body: JSON.stringify({email: email, password: password, rememberMe: rememberMe})} 
+    {...params, method: "POST", headers: {...params.headers, 'Content-Type': 'application/json'}, body: JSON.stringify({email: email, password: password, captcha: captcha, rememberMe: rememberMe})} 
     // params
     // {
     //   credentials: "include",
@@ -125,4 +125,13 @@ export const authApi = {
       return data.json();
     });
   },
+};
+
+
+export const securityApi = {
+  getCaptchaUrl() {
+    return fetch(`${url}security/get-captcha-url`, {...params, method: "GET"}).then((data) => {
+      return data.json();
+    });
+  }
 };
