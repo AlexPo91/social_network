@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, withRouter, HashRouter } from "react-router-dom";
+import { BrowserRouter, Route, withRouter, HashRouter, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import Music from "./components/Music";
 import Navbar from "./components/Navbar/Navbar";
@@ -30,6 +30,8 @@ class App extends React.Component {
         <HeaderContainer />
         <Navbar />
         <div className="app-wrapper-content">
+          <Switch>
+            <Redirect from='/' to='/profile' />
           {/* <Route path="/dialogs" render={() => <DialogsContainer />} /> */}
           <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
           {/* <Route path="/profile/:userId?" render={() => <ProfileContainer />} /> */}
@@ -39,6 +41,7 @@ class App extends React.Component {
           {/* <Route path="/users" component={UsersContainer} /> */}
           <Route path="/users" render={withSuspense(UsersContainer)} />
           <Route path="/login" component={Login} />
+          </Switch>
         </div>
       </div>
     );
