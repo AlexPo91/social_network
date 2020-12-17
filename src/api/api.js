@@ -2,7 +2,7 @@ const url = "https://social-network.samuraijs.com/api/1.0/";
 let params = {
   credentials: "include",
   headers: {
-    "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3",
+    "API-Key": "3ca3c32f-3cf4-4af0-8468-8675dc4867d3_",
   },
 };
 

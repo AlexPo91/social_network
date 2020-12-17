@@ -1,5 +1,12 @@
 import React from "react";
-import { BrowserRouter, Route, withRouter, HashRouter, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  withRouter,
+  HashRouter,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 import Music from "./components/Music";
 import Navbar from "./components/Navbar/Navbar";
@@ -16,9 +23,15 @@ import Preloader from "./components/common/Preloader";
 import { compose } from "redux";
 import store from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
-const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() =>
+  import("./components/Dialogs/DialogsContainer")
+);
+const UsersContainer = React.lazy(() =>
+  import("./components/Users/UsersContainer")
+);
+const ProfileContainer = React.lazy(() =>
+  import("./components/Profile/ProfileContainer")
+);
 class App extends React.Component {
   componentDidMount() {
     this.props.initializedApp();
@@ -31,16 +44,19 @@ class App extends React.Component {
         <Navbar />
         <div className="app-wrapper-content">
           <Switch>
-            <Redirect from='/' to='/profile' />
-          {/* <Route path="/dialogs" render={() => <DialogsContainer />} /> */}
-          <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
-          {/* <Route path="/profile/:userId?" render={() => <ProfileContainer />} /> */}
-          <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
-          <Route path="/news" component={News} />
-          <Route path="/music" component={Music} />
-          {/* <Route path="/users" component={UsersContainer} /> */}
-          <Route path="/users" render={withSuspense(UsersContainer)} />
-          <Route path="/login" component={Login} />
+            {/* <Route path="/dialogs" render={() => <DialogsContainer />} /> */}
+            <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
+            {/* <Route path="/profile/:userId?" render={() => <ProfileContainer />} /> */}
+            <Route
+              path="/profile/:userId?"
+              render={withSuspense(ProfileContainer)}
+            />
+            <Route path="/news" component={News} />
+            <Route path="/music" component={Music} />
+            {/* <Route path="/users" component={UsersContainer} /> */}
+            <Route path="/users" render={withSuspense(UsersContainer)} />
+            <Route path="/login" component={Login} />
+            <Redirect from="/" to="/profile" />
           </Switch>
         </div>
       </div>
